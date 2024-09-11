@@ -1,34 +1,29 @@
 // src/screens/TelaBSub1.js
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text} from 'react-native';
 import useNavegacao from '../../hooks/useNavegacao';
 
-class TelaBSub1 extends Component {
-  render() {
-    const {message} = this.props.route.params;
+const TelaBSub1 = () => {
+  const [Mensagem, setMensagem] = useState('Nenhum parametro definido');
+  const navegacaoContext = useNavegacao();
 
-    receberParametros = () => {
-      const navegacaoContext = useNavegacao();
-      navegacaoContext.setParametros('SubStackB', 'TelaBSub1', {
-        message: 'Olá, StackB!',
-      });
-  
-   
-    };
+  const receberParametros = () => {
+    const parametros = navegacaoContext.getParametros('SubStackB',
+         'TelaBSub1');
+    setMensagem(parametros?.message);
+    console.debug('parametros', parametros);
+  };
 
+  useEffect(() => {
+    receberParametros();
+  }, []);
 
-
-
-    this.receberParametros();
-
-    return (
-      
-      <View>
-        <Text>Tela BSub1</Text>
-        <Text>Mensagem recebida: {message}</Text>
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <Text>Tela BSub1</Text>
+      <Text>Mensagem recebida: {Mensagem}</Text>
+    </View>
+  );
+};
 
 export default TelaBSub1;

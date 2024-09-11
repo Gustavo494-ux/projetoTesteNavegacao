@@ -1,28 +1,30 @@
 // src/screens/TelaA1.js
-import React, {Component} from 'react';
+import React from 'react';
 import {Button, View, Text} from 'react-native';
 import useNavegacao from '../../hooks/useNavegacao';
+import {useNavigation} from '@react-navigation/native';
 
-class TelaA1 extends Component {
-  navigateToB1 = () => {
-    const navegacaoContext = useNavegacao();
+const TelaA1 = () => {
+  const navigation = useNavigation();
+  const navegacaoContext = useNavegacao();
+
+  const navigateToB1 = () => {
     navegacaoContext.setParametros('SubStackB', 'TelaBSub1', {
       message: 'Olá, StackB!',
     });
 
-    this.props.navigation.navigate('StackB', {
-      screen: 'TelaB1',
+    navigation.navigate('StackB', {
+      screen: 'TelaBSub1',
+      params: {},
     });
   };
 
-  render() {
-    return (
-      <View>
-        <Text>Tela A1</Text>
-        <Button title="Ir para TelaB1 na StackB" onPress={this.navigateToB1} />
-      </View>
-    );
-  }
-}
+  return (
+    <View>
+      <Text>Tela A1</Text>
+      <Button title="Ir para TelaB1 na StackB" onPress={navigateToB1} />
+    </View>
+  );
+};
 
 export default TelaA1;
